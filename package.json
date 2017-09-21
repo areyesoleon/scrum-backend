@@ -1,0 +1,19 @@
+{
+  "name": "scrum-backend",
+  "version": "1.0.0",
+  "description": "backend del scrum",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/areyesoleon/scrum-backend.git"
+  },
+  "author": "areyesoleon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/areyesoleon/scrum-backend/issues"
+  },
+  "homepage": "https://github.com/areyesoleon/scrum-backend#readme"
+}
