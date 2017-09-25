@@ -3,6 +3,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
+{/*Carga de rutas*/}
+let projectRoutes = './routes/project';
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use((req, res, next) => {
@@ -12,5 +15,8 @@ app.use((req, res, next) => {
    res.header('Allow', 'GET,POST,OPTIONS,PUT,DELETE');
    next();
 });
+
+{/*Rutas base*/}
+app.use('/api',projectRoutes);
 
 module.exports = app;
