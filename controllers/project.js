@@ -24,8 +24,8 @@ function saveProject(req, res) {
             res.status(404).send({
                type: 'warning',
                message:'Ingrese los datos correctamente.'
-            })
+            });
          }
       }
-   })
+   });
 }
