@@ -1,6 +1,6 @@
 'use strict'
 const express = require('express');
-const ProjectController = require('../controller/project');
+const ProjectController = require('../controllers/project');
 const api = express.Router();
 
 api.post('/save',ProjectController.save);

@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 {/*Carga de rutas*/}
-let projectRoutes = './routes/project';
+let projectRoutes = require('./routes/project');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -17,6 +17,6 @@ app.use((req, res, next) => {
 });
 
 {/*Rutas base*/}
-app.use('/api',projectRoutes);
+app.use('/api/project',projectRoutes);
 
 module.exports = app;

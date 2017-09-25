@@ -23,7 +23,7 @@ function save(req, res) {
          else {
             res.status(404).send({
                type: 'warning',
-               message:'Ingrese los datos correctamente.'
+               message: 'Ingrese los datos correctamente.'
             });
          }
       }
