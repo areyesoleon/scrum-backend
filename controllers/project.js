@@ -1,6 +1,11 @@
 'use strict'
 const Project = require('../models/project');
 
+const serverError = {
+   type: 'error',
+   message: 'Error en el servidor.'
+}
+
 function save(req, res) {
    let project = new Project();
    let params = req.body;
@@ -8,8 +13,7 @@ function save(req, res) {
    project.save((err, ok) => {
       if (err) {
          res.status(500).send({
-            type: 'error',
-            message: 'Error en el servidor'
+            serverError
          });
       }
       else {
@@ -34,8 +38,7 @@ function search(req, res) {
    Project.find({}).exec((err, ok) => {
       if (err) {
          res.status(500).send({
-            type: 'error',
-            message: 'Error en el servidor'
+            serverError
          });
       }
       else {
@@ -60,8 +63,7 @@ function searchBy(req, res) {
    Project.findById(id).exec((err, ok) => {
       if (err) {
          res.status(500).send({
-            type: 'error',
-            message: 'Error en el servidor.'
+            serverError
          });
       }
       else {
@@ -81,8 +83,37 @@ function searchBy(req, res) {
    });
 }
 
+function update(req, res) {
+   let id = req.params.id;
+   let dataUpdate = req.body;
+
+   Project.findByIdAndUpdate(id, dataUpdate, { new: true }, (err, ok) => {
+      if (err) {
+         res.status(500).send({
+            serverError
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).send({
+               type: 'success',
+               message: 'El proyecto fue actualizado',
+               doc: ok
+            });
+         }
+         else {
+            res.status(404).send({
+               type: 'warning',
+               message: 'El proyecto no pudo ser actualizado'
+            });
+         }
+      }
+   });
+}
+
 module.exports = {
    save,
    search,
-   searchBy
+   searchBy,
+   update
 }
