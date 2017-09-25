@@ -111,9 +111,36 @@ function update(req, res) {
    });
 }
 
+function remove(req, res) {
+   let id = req.params.id;
+   Project.findByIdAndRemove(id, (err, ok) => {
+      if (err) {
+         res.status(500).send({
+            serverError
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).send({
+               type: 'success',
+               message: 'El proyecto fue eliminado.',
+               doc: ok
+            });
+         }
+         else {
+            res.status(404).send({
+               type: 'warning',
+               message: 'El proyecto no pudo ser eliminado.'
+            });
+         }
+      }
+   });
+}
+
 module.exports = {
    save,
    search,
    searchBy,
-   update
+   update,
+   remove
 }
