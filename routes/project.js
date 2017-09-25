@@ -5,5 +5,6 @@ const api = express.Router();
 
 api.post('/save',ProjectController.save);
 api.get('/search',ProjectController.search);
+api.get('/searchBy/:id',ProjectController.searchBy);
 
 module.exports = api;
