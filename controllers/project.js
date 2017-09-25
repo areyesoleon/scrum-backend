@@ -1,7 +1,7 @@
 'use strict'
 const Project = require('../models/project');
 
-function saveProject(req, res) {
+function save(req, res) {
    let project = new Project();
    let params = req.body;
    project.name = params.name;
@@ -28,4 +28,8 @@ function saveProject(req, res) {
          }
       }
    });
+}
+
+module.exports = {
+   save
 }
