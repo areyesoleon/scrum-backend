@@ -5,6 +5,7 @@ const app = express();
 
 {/*Carga de rutas*/}
 let projectRoutes = require('./routes/project');
+let productBackLogRoutes = require('./routes/productBackLog');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -18,5 +19,6 @@ app.use((req, res, next) => {
 
 {/*Rutas base*/}
 app.use('/api/project',projectRoutes);
+app.use('/api/productBackLog',productBackLogRoutes);
 
 module.exports = app;
