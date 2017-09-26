@@ -12,8 +12,9 @@ function save(req, res) {
    project.name = params.name;
    project.save((err, ok) => {
       if (err) {
+         let error = err.errors;
          res.status(500).send({
-            serverError
+            error
          });
       }
       else {
@@ -89,8 +90,9 @@ function update(req, res) {
 
    Project.findByIdAndUpdate(id, dataUpdate, { new: true }, (err, ok) => {
       if (err) {
+         let error = err.errors;
          res.status(500).send({
-            serverError
+            error
          });
       }
       else {
