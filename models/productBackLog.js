@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ProductBackLogSchema = Schema({
    name: {
       type: String,
-      require: [true, 'Ingresa el nombre de la historia.']
+      required: [true, 'Ingresa el nombre de la historia.']
    },
    date: {
       type: Date,
