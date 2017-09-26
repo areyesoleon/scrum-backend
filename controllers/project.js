@@ -3,7 +3,7 @@ const Project = require('../models/project');
 
 const serverError = {
    type: 'error',
-   message: 'Error en el servidor.'
+   message: 'Error en la consulta.'
 }
 
 function save(req, res) {
@@ -14,7 +14,8 @@ function save(req, res) {
       if (err) {
          let error = err.errors;
          res.status(500).send({
-            error
+            type: 'error',
+            arrayError: error
          });
       }
       else {
@@ -92,7 +93,8 @@ function update(req, res) {
       if (err) {
          let error = err.errors;
          res.status(500).send({
-            error
+            type: 'error',
+            arrayError: error
          });
       }
       else {
