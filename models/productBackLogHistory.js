@@ -19,7 +19,7 @@ const ProductBackLogHistorySchema = Schema({
       type: Number,
       min: [0, 'La prioridad no pude ser negativa.'],
       max: [10, 'La prioridad no pude ser mayor a 10.'],
-      require: [true, 'Ingrese el nivel de prioridad.']
+      required: [true, 'Ingrese el nivel de prioridad.']
    }
 });
 module.exports = mongoose.model('ProductBackLogHistory', ProductBackLogHistorySchema);

@@ -13,7 +13,7 @@ const ProductBackLogSchema = Schema({
    project: {
       type:Schema.ObjectId,
       ref:'Project',
-      require: [true,'Error en la asignación del proyecto.']
+      required: [true,'Error en la asignación del proyecto.']
    }
 });
 module.exports = mongoose.model('ProductBackLog',ProductBackLogSchema);

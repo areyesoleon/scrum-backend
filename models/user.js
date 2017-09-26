@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 const UserSchema = Schema({
    name: {
       type: String,
-      require: [true, 'Ingrese nombre del usuario.']
+      required: [true, 'Ingrese nombre del usuario.']
    },
    surName: {
       type: String,
-      require: [true, 'Ingrese los apellidos del usuario']
+      required: [true, 'Ingrese los apellidos del usuario']
    },
    email: {
       type: String,
@@ -18,12 +18,12 @@ const UserSchema = Schema({
          },
          message: '{VALUE} no es un correo valido'
       },
-      require: [true, 'Ingrese correo electronico']
+      required: [true, 'Ingrese correo electronico']
    },
    role: {
       type: Schema.ObjectId,
       ref: 'RoleUser',
-      require: [true, 'El usuario no tiene un rol definido']
+      required: [true, 'El usuario no tiene un rol definido']
    }
 });
 module.exports = mongoose.model('User', UserSchema);

@@ -5,16 +5,16 @@ const TaskSchema = Schema({
    sprint: {
       type: Schema.ObjectId,
       ref: 'Sprint',
-      require: [true, 'Error en la asignacion del spring.']
+      required: [true, 'Error en la asignacion del spring.']
    },
    productBackLogHistory: {
       type: Schema.ObjectId,
       ref: 'ProductBackLogHistory',
-      require: [true, 'Error en la asignacion de la historia.']
+      required: [true, 'Error en la asignacion de la historia.']
    },
    name: {
       type: String,
-      require: [true, 'El nombre es obligatorio.'],
+      required: [true, 'El nombre es obligatorio.'],
    },
    date: {
       type: Date,
@@ -23,12 +23,12 @@ const TaskSchema = Schema({
    origin: {
       type: Schema.ObjectId,
       ref: 'OriginTask',
-      require: [true, 'El origen de la tarea no definido.'],
+      required: [true, 'El origen de la tarea no definido.'],
    },
    state: {
       type: Schema.ObjectId,
       ref: 'StateTask',
-      require: [true, 'El estado de la tarea no esta definida']
+      required: [true, 'El estado de la tarea no esta definida']
    },
    originTask: {
       type: Schema.ObjectId,
@@ -38,11 +38,13 @@ const TaskSchema = Schema({
       type: Number,
       min: [0, 'Los puntos de la tarea no pueden ser negativos'],
       max: [10, 'Los puntos maximos que puede tener la tarea son 10.'],
+      required: [true,'Ingrese los puntos de la tarea.']
    },
    burnPoints: {
       type: Number,
       min: [0, 'No pudes quemar puntos en negativo.'],
-      max: [10, 'Los puntos maximos que puedes quemar por tarea son 10.']
+      max: [10, 'Los puntos maximos que puedes quemar por tarea son 10.'],
+      required: [true,'Ingrese 0 si no hay puntos quemados.']
    }
 });
 module.exports = mongoose.model('Task', TaskSchema);

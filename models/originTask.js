@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const OriginTaskSchema = Schema({
    description: {
       type: String,
-      require: [true, 'Ingrese la descripción.']
+      required: [true, 'Ingrese la descripción.']
    }
 });
 module.exports = mongoose.model('OriginTask', OriginTaskSchema);

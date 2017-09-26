@@ -2,13 +2,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ProjectSchema = Schema({
-   name:{
+   name: {
       type: String,
-      require:[true,'Ingrese el nombre del proyecto.']
+      required: [true, 'Ingrese el nombre del proyecto.']
    },
    date: {
       type: Date, default: Date.now
    }
 });
 
-module.exports = mongoose.model('Project',ProjectSchema);
+module.exports = mongoose.model('Project', ProjectSchema);

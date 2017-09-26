@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const StateTaskSchema = Schema({
    description: {
       type: String,
-      require: [true, 'Ingrese la descripción.']
+      required: [true, 'Ingrese la descripción.']
    }
 });
 module.exports = mongoose.model('StateTask', StateTaskSchema);

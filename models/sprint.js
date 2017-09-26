@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const SprintSchema = Schema({
    name: {
       type: String,
-      require: [true, 'Ingrese el nombre del sprint.']
+      required: [true, 'Ingrese el nombre del sprint.']
    },
    date: {
       type: Date,
