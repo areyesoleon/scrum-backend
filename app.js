@@ -3,9 +3,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
-{/*Carga de rutas*/}
+{/*Carga de rutas*/ }
 let projectRoutes = require('./routes/project');
 let productBackLogRoutes = require('./routes/productBackLog');
+let productBackLogHistoyRoutes = require('./routes/productBackLogHistory');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -17,8 +18,9 @@ app.use((req, res, next) => {
    next();
 });
 
-{/*Rutas base*/}
-app.use('/api/project',projectRoutes);
-app.use('/api/productBackLog',productBackLogRoutes);
+{/*Rutas base*/ }
+app.use('/api/project', projectRoutes);
+app.use('/api/productBackLog', productBackLogRoutes);
+app.use('/api/productBackLogHistory', productBackLogHistoyRoutes);
 
 module.exports = app;
