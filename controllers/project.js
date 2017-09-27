@@ -1,5 +1,6 @@
 'use strict'
 const Project = require('../models/project');
+const ProductBackLog = require('../models/productBackLog');
 
 const serverError = {
    type: 'error',
@@ -29,7 +30,7 @@ function save(req, res) {
          else {
             res.status(404).send({
                type: 'warning',
-               message:'Los datos no fueron guardados.'
+               message: 'Los datos no fueron guardados.'
             });
          }
       }
@@ -117,7 +118,7 @@ function update(req, res) {
 
 function remove(req, res) {
    let id = req.params.id;
-   Project.findByIdAndRemove(id, (err, ok) => {
+   ProductBackLog.findOne({ project: id }).exec((err, ok) => {
       if (err) {
          res.status(500).send({
             serverError
@@ -125,16 +126,33 @@ function remove(req, res) {
       }
       else {
          if (ok) {
-            res.status(200).send({
-               type: 'success',
-               message: 'El proyecto fue eliminado.',
-               doc: ok
+            res.status(404).send({
+               type: 'warning',
+               message: 'No pude eliminar proyectos con historias.'
             });
          }
          else {
-            res.status(404).send({
-               type: 'warning',
-               message: 'El proyecto no pudo ser eliminado.'
+            Project.findByIdAndRemove(id, (err, ok) => {
+               if (err) {
+                  res.status(500).send({
+                     serverError
+                  });
+               }
+               else {
+                  if (ok) {
+                     res.status(200).send({
+                        type: 'success',
+                        message: 'El proyecto fue eliminado.',
+                        doc: ok
+                     });
+                  }
+                  else {
+                     res.status(404).send({
+                        type: 'warning',
+                        message: 'El proyecto no pudo ser eliminado.'
+                     });
+                  }
+               }
             });
          }
       }
