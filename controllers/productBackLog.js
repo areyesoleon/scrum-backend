@@ -34,6 +34,56 @@ function save(req, res) {
       }
    });
 }
+function search(req, res) {
+   let project = req.params.project;
+   ProductBackLog.find({ project: project }).exec((err, ok) => {
+      if (err) {
+         res.status(500).send({
+            serverError
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).send({
+               type: 'success',
+               doc: ok
+            });
+         }
+         else {
+            res.status(404).send({
+               type: 'warning',
+               message: 'La historia que busca no existe.'
+            });
+         }
+      }
+   });
+}
+function searchBy(req, res) {
+   let id = req.params.id;
+   ProductBackLog.findById(id).populate('project').exec((err, ok) => {
+      if (err) {
+         res.status(500).send({
+            serverError
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).send({
+               type: 'success',
+               doc: ok
+            });
+         }
+         else {
+            res.status(404).send({
+               tyepe: 'warning',
+               message: 'La historia que busca no existe.'
+            });
+         }
+      }
+   });
+}
 module.exports = {
-   save
+   save,
+   search,
+   searchBy
 }
