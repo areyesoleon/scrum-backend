@@ -11,9 +11,10 @@ const ProductBackLogSchema = Schema({
       default: Date.now
    },
    project: {
-      type:Schema.ObjectId,
-      ref:'Project',
-      required: [true,'Error en la asignación del proyecto.']
+      type: Schema.ObjectId,
+      ref: 'Project',
+      required: [true, 'Error en la asignación del proyecto.']
    }
 });
-module.exports = mongoose.model('ProductBackLog',ProductBackLogSchema);
+
+module.exports = mongoose.model('ProductBackLog', ProductBackLogSchema);
