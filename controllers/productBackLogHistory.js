@@ -59,8 +59,32 @@ function search(req, res) {
          }
       }
    });
+} function searchBy(req, res) {
+   let id = req.params.id;
+   ProductBackLogHistory.findById(id).populate('productBackLog').exec((err, ok) => {
+      if (err) {
+         res.status(500).json({
+            serverError
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).json({
+               type: 'success',
+               doc: ok
+            });
+         }
+         else {
+            res.status(404).json({
+               type: 'warning',
+               message: 'La historia que buscas no existe.'
+            });
+         }
+      }
+   });
 }
 module.exports = {
    save,
-   search
+   search,
+   searchBy
 }
