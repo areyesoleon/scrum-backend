@@ -82,8 +82,62 @@ function searchBy(req, res) {
       }
    });
 }
+function update(req, res) {
+   let id = req.params.id;
+   let dataUpdate = req.body;
+   ProductBackLog.findByIdAndUpdate(id, dataUpdate, { new: true, runValidators: true }, (err, ok) => {
+      if (err) {
+         let error = err.errors;
+         res.status(500).send({
+            type: 'error',
+            arrayError: error
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).send({
+               type: 'success',
+               message: 'La historia fue actualizada.',
+               doc: ok
+            });
+         }
+         else {
+            res.status(404).send({
+               type: 'warning',
+               message: 'La historia no puede ser actualizada.'
+            });
+         }
+      }
+   });
+}
+function remove(req,res) {
+   let id = req.params.id;
+   ProductBackLog.findByIdAndRemove(id,(err,ok)=>{
+      if(err){
+         res.status(500).send({
+            serverError
+         });
+      }
+      else{
+         if(ok){
+            res.status(200).send({
+               type:'success',
+               message:'La historia fue eliminada.'
+            });
+         }
+         else{
+            res.status(404).send({
+               type:'warning',
+               message:'No se pudo eliminar la historia.'
+            });
+         }
+      }
+   });
+}
 module.exports = {
    save,
    search,
-   searchBy
+   searchBy,
+   update,
+   remove
 }
