@@ -24,7 +24,7 @@ function save(req, res) {
             res.status(200).json({
                type: 'success',
                message: 'La historia fue creada ',
-               doc:ok
+               doc: ok
             });
          }
          else {
@@ -36,6 +36,31 @@ function save(req, res) {
       }
    });
 }
+function search(req, res) {
+   let productBackLog = req.params.productBackLog;
+   ProductBackLogHistory.find({ productBackLog: productBackLog }).exec((err, ok) => {
+      if (err) {
+         res.status(500).json({
+            serverError
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).json({
+               type: 'success',
+               doc: ok
+            });
+         }
+         else {
+            res.status(404).json({
+               type: 'warning',
+               message: 'La historia que busca no existe.'
+            });
+         }
+      }
+   });
+}
 module.exports = {
-   save
+   save,
+   search
 }
