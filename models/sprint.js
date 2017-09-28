@@ -11,4 +11,4 @@ const SprintSchema = Schema({
       default: Date.now
    }
 });
-module.exports = moongose.model('Sprint', SprintSchema);
+module.exports = mongoose.model('Sprint', SprintSchema);
