@@ -90,7 +90,7 @@ function update(req, res) {
    let id = req.params.id;
    let dataUpdate = req.body;
 
-   Project.findByIdAndUpdate(id, dataUpdate, { new: true }, (err, ok) => {
+   Project.findByIdAndUpdate(id, dataUpdate, { new: true, runValidators: true }, (err, ok) => {
       if (err) {
          let error = err.errors;
          res.status(500).send({
