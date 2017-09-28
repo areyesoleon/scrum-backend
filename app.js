@@ -8,6 +8,7 @@ let projectRoutes = require('./routes/project');
 let productBackLogRoutes = require('./routes/productBackLog');
 let productBackLogHistoyRoutes = require('./routes/productBackLogHistory');
 let sprintRoutes = require('./routes/sprint');
+let originTaskRoutes = require('./routes/originTask');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -24,5 +25,6 @@ app.use('/api/project', projectRoutes);
 app.use('/api/productBackLog', productBackLogRoutes);
 app.use('/api/productBackLogHistory', productBackLogHistoyRoutes);
 app.use('/api/sprint', sprintRoutes);
+app.use('/api/originTask', originTaskRoutes);
 
 module.exports = app;
