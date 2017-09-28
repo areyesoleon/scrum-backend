@@ -110,9 +110,34 @@ function update(req, res) {
       }
    });
 }
+function remove(req, res) {
+   let id = req.params.id;
+   RoleUser.findByIdAndRemove(id, (err, ok) => {
+      if (err) {
+         res.status(500).json({
+            serverError
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).json({
+               type: 'success',
+               message: 'El rol fue eliminado correctamente',
+            });
+         }
+         else {
+            res.status(400).json({
+               type: 'warning',
+               message: 'No se pudo eliminar el rol.'
+            });
+         }
+      }
+   });
+}
 module.exports = {
    save,
    search,
    searchBy,
-   update
+   update,
+   remove
 }
