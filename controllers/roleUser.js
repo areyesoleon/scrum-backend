@@ -33,6 +33,86 @@ function save(req, res) {
       }
    });
 }
+function search(req, res) {
+   RoleUser.find({}).exec((err, ok) => {
+      if (err) {
+         res.status(500).json({
+            serverError
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).json({
+               type: 'success',
+               message: 'Los roles fueron encontrados.',
+               doc: ok
+            });
+         }
+         else {
+            res.status(404).json({
+               type: 'warning',
+               message: 'El rol que buscas no existe.'
+            });
+         }
+      }
+   });
+}
+function searchBy(req, res) {
+   let id = req.params.id;
+   RoleUser.findById(id).exec((err, ok) => {
+      if (err) {
+         res.status(500).json({
+            serverError
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).json({
+               type: 'success',
+               message: 'El rol fue encontrado.',
+               doc: ok
+            });
+         }
+         else {
+            res.status(404).json({
+               type: 'warning',
+               message: 'El rol que buscas no existe.'
+            });
+         }
+      }
+   });
+}
+function update(req, res) {
+   let id = req.params.id;
+   let dataUpdate = req.body;
+   RoleUser.findByIdAndUpdate(id, dataUpdate, { new: true, runValidators: true }, (err, ok) => {
+      if (err) {
+         let error = err.errors;
+         res.status(500).json({
+            type: 'error',
+            arrayError: error
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).json({
+               type: 'success',
+               message: 'El rol fue acutalizado correctamente.',
+               doc: ok
+            });
+         }
+         else {
+            res.status(400).json({
+               type: 'warning',
+               message: 'No se pudo actualizar el rol.'
+            });
+         }
+      }
+   });
+}
 module.exports = {
-   save
+   save,
+   search,
+   searchBy,
+   update
 }
