@@ -7,6 +7,7 @@ const app = express();
 let projectRoutes = require('./routes/project');
 let productBackLogRoutes = require('./routes/productBackLog');
 let productBackLogHistoyRoutes = require('./routes/productBackLogHistory');
+let sprintRoutes = require('./routes/sprint');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -22,5 +23,6 @@ app.use((req, res, next) => {
 app.use('/api/project', projectRoutes);
 app.use('/api/productBackLog', productBackLogRoutes);
 app.use('/api/productBackLogHistory', productBackLogHistoyRoutes);
+app.use('/api/sprint', sprintRoutes);
 
 module.exports = app;
