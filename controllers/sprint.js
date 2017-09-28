@@ -51,8 +51,32 @@ function search(req, res) {
          }
          else {
             res.status(404).json({
+               type: 'warning',
+               message: 'No se encontro ningun sprint.'
+            });
+         }
+      }
+   });
+}
+function searchBy(req, res) {
+   let id = req.params.id;
+   Sprint.findById(id).exec((err, ok) => {
+      if (err) {
+         res.status(500).json({
+            serverError
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).json({
+               type:'success',
+               doc: ok
+            });
+         }
+         else {
+            res.status(404).json({
                type:'warning',
-               message:'No se encontro ningun sprint.'
+               message:'El sprint que busca no existe.'
             });
          }
       }
@@ -60,5 +84,6 @@ function search(req, res) {
 }
 module.exports = {
    save,
-   search
+   search,
+   searchBy
 }
