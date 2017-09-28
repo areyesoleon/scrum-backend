@@ -1,5 +1,6 @@
 'use strict'
 const ProductBackLog = require('../models/productBackLog');
+const ProductBackLogHistory = require('../models/productBackLogHistory');
 const serverError = {
    type: 'error',
    message: 'Error en la consulta.'
@@ -110,25 +111,42 @@ function update(req, res) {
       }
    });
 }
-function remove(req,res) {
+function remove(req, res) {
    let id = req.params.id;
-   ProductBackLog.findByIdAndRemove(id,(err,ok)=>{
-      if(err){
-         res.status(500).send({
+   ProductBackLogHistory.findOne({ productBackLog: id }).exec((err, ok) => {
+      if (err) {
+         res.status(500).json({
             serverError
          });
       }
-      else{
-         if(ok){
-            res.status(200).send({
-               type:'success',
-               message:'La historia fue eliminada.'
+      else {
+         if (ok) {
+            res.status(400).json({
+               type: 'warning',
+               message: 'No se puede eliminar la historia con historias.'
             });
          }
-         else{
-            res.status(404).send({
-               type:'warning',
-               message:'No se pudo eliminar la historia.'
+         else {
+            ProductBackLog.findByIdAndRemove(id, (err, ok) => {
+               if (err) {
+                  res.status(500).send({
+                     serverError
+                  });
+               }
+               else {
+                  if (ok) {
+                     res.status(200).send({
+                        type: 'success',
+                        message: 'La historia fue eliminada.'
+                     });
+                  }
+                  else {
+                     res.status(404).send({
+                        type: 'warning',
+                        message: 'No se pudo eliminar la historia.'
+                     });
+                  }
+               }
             });
          }
       }
