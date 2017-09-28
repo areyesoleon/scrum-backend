@@ -34,6 +34,31 @@ function save(req, res) {
    });
 
 }
+function search(req, res) {
+   let id = req.params.id;
+   Sprint.find({}).exec((err, ok) => {
+      if (err) {
+         res.status(500).json({
+            serverError
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).json({
+               type: 'success',
+               doc: ok
+            });
+         }
+         else {
+            res.status(404).json({
+               type:'warning',
+               message:'No se encontro ningun sprint.'
+            });
+         }
+      }
+   });
+}
 module.exports = {
-   save
+   save,
+   search
 }
