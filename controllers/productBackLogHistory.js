@@ -59,7 +59,8 @@ function search(req, res) {
          }
       }
    });
-} function searchBy(req, res) {
+}
+function searchBy(req, res) {
    let id = req.params.id;
    ProductBackLogHistory.findById(id).populate('productBackLog').exec((err, ok) => {
       if (err) {
@@ -83,8 +84,37 @@ function search(req, res) {
       }
    });
 }
+function update(req, res) {
+   let id = req.params.id;
+   let dataUpdate = req.body;
+   ProductBackLogHistory.findByIdAndUpdate(id, dataUpdate, { new: true, runValidators: true }, (err, ok) => {
+      if (err) {
+         let error = err.errors;
+         res.status(500).json({
+            type: 'error',
+            arrayError: error
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).json({
+               type: 'success',
+               doc: ok
+            });
+         }
+         else {
+            res.status(400).json({
+               type: 'warning',
+               message: 'La historia no se pudo actualizar.'
+            });
+         }
+      }
+   });
+}
+
 module.exports = {
    save,
    search,
-   searchBy
+   searchBy,
+   update
 }
