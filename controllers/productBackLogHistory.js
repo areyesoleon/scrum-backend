@@ -111,10 +111,35 @@ function update(req, res) {
       }
    });
 }
+function remove(req, res) {
+   let id = req.params.id;
+   ProductBackLogHistory.findByIdAndRemove(id).exec((err, ok) => {
+      if (err) {
+         res.status(500).json({
+            serverError
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).json({
+               type: 'success',
+               message: 'La historia fue eliminada.'
+            });
+         }
+         else {
+            res.status(400).json({
+               type: 'warning',
+               message: 'No se pudo eliminar la historia.'
+            });
+         }
+      }
+   });
+}
 
 module.exports = {
    save,
    search,
    searchBy,
-   update
+   update,
+   remove
 }
