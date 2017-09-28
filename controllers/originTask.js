@@ -84,8 +84,62 @@ function searchBy(req, res) {
       }
    });
 }
+function update(req, res) {
+   let id = req.params.id;
+   let dataUpdate = req.body;
+   OriginTask.findByIdAndUpdate(id, dataUpdate, { new: true, runValidators: true }, (err, ok) => {
+      if (err) {
+         let error = err.errors;
+         res.status(500).json({
+            type: 'error',
+            arrayError: error
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).json({
+               type: 'success',
+               message: 'El origen de la tarea fue editado correctamente.',
+               doc: ok
+            });
+         }
+         else {
+            res.status(400).json({
+               type: 'warning',
+               message: 'El origen de la tarea no fue editada.'
+            });
+         }
+      }
+   });
+}
+function remove(req,res) {
+   let id = req.params.id;
+   OriginTask.findByIdAndRemove(id).exec((err,ok)=>{
+      if(err){
+         res.status(500).json({
+            serverError
+         });
+      }
+      else{
+         if(ok){
+            res.status(200).json({
+               type:'success',
+               message:'El origen fue eliminado.'
+            });
+         }
+         else{
+            res.status(400).json({
+               type:'warning',
+               message:'El origen no pudo ser eliminado'
+            });
+         }
+      }
+   });
+}
 module.exports = {
    save,
    search,
-   searchBy
+   searchBy,
+   update,
+   remove
 }
