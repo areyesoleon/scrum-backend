@@ -69,14 +69,42 @@ function searchBy(req, res) {
       else {
          if (ok) {
             res.status(200).json({
-               type:'success',
+               type: 'success',
                doc: ok
             });
          }
          else {
             res.status(404).json({
-               type:'warning',
-               message:'El sprint que busca no existe.'
+               type: 'warning',
+               message: 'El sprint que busca no existe.'
+            });
+         }
+      }
+   });
+}
+function update(req, res) {
+   let id = req.params.id;
+   let dataUpdate = req.body;
+   Sprint.findByIdAndUpdate(id, dataUpdate, { new: true, runValidators: true }, (err, ok) => {
+      if (err) {
+         let error = err.errors;
+         res.status(500).json({
+            type: 'error',
+            arrayError: error
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).json({
+               type: 'success',
+               message: 'El sprint fue actualizado correctamente.',
+               doc: ok
+            });
+         }
+         else {
+            res.status(400).json({
+               type: 'warning',
+               message: 'El sprint no pudo ser actualizado.'
             });
          }
       }
@@ -85,5 +113,6 @@ function searchBy(req, res) {
 module.exports = {
    save,
    search,
-   searchBy
+   searchBy,
+   update
 }
