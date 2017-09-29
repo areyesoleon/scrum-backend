@@ -11,6 +11,7 @@ let sprintRoutes = require('./routes/sprint');
 let originTaskRoutes = require('./routes/originTask');
 let stateTaskRoutes = require('./routes/stateTask');
 let roleUserRoutes = require('./routes/roleUser');
+let userRoutes = require('./routes/user');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -30,5 +31,6 @@ app.use('/api/sprint', sprintRoutes);
 app.use('/api/originTask', originTaskRoutes);
 app.use('/api/stateTask', stateTaskRoutes);
 app.use('/api/roleUser', roleUserRoutes);
+app.use('/api/user', userRoutes);
 
 module.exports = app;
