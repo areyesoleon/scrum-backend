@@ -61,6 +61,21 @@ function save(req, res) {
       })
    }
 }
+function search(req,res){
+   User.find({},(err,ok)=>{
+      if(err){
+
+      }
+      else{
+         if(ok){
+
+         }
+         else{
+            
+         }
+      }
+   });
+}
 module.exports = {
    save
 }
