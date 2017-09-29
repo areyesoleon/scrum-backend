@@ -18,12 +18,17 @@ const UserSchema = Schema({
          },
          message: '{VALUE} no es un correo valido'
       },
+      unique: [true,'El usuario ya esta registrado'],
       required: [true, 'Ingrese correo electronico']
    },
    role: {
       type: Schema.ObjectId,
       ref: 'RoleUser',
       required: [true, 'El usuario no tiene un rol definido']
+   },
+   password: {
+      type: String,
+      required: [true, 'Ingrese la contraseña']
    }
 });
 module.exports = mongoose.model('User', UserSchema);
