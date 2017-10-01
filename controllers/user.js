@@ -34,13 +34,13 @@ function save(req, res) {
                      res.status(200).json({
                         type: 'success',
                         message: 'El usuario fue creado exitosamente.',
-                        doc:{
-                           name:ok.name,
-                           surName:ok.surName,
-                           email:ok.email,
-                           role:ok.role,
+                        doc: {
+                           name: ok.name,
+                           surName: ok.surName,
+                           email: ok.email,
+                           role: ok.role,
                            password: '>:P desde aca no puedes verla.'
-                        } 
+                        }
                      });
                   }
                   else {
@@ -61,21 +61,61 @@ function save(req, res) {
       })
    }
 }
-function search(req,res){
-   User.find({},(err,ok)=>{
-      if(err){
-
+function search(req, res) {
+   User.find({}).select('_id name surName email role').exec((err, ok) => {
+      if (err) {
+         let error = err.errors;
+         res.status(500).json({
+            type: 'error',
+            serverError
+         });
       }
-      else{
-         if(ok){
-
+      else {
+         if (ok) {
+            res.status(200).json({
+               type: 'success',
+               message: 'Usuarios encontrados.',
+               doc: ok
+            });
          }
-         else{
-            
+         else {
+            res.status(400).json({
+               type: 'warning',
+               message: 'No hay información de usuarios.'
+            });
+         }
+      }
+   });
+}
+function searchBy(req, res) {
+   let id = req.params.id;
+   User.findById(id).select('_id name surName email role').exec((err, ok) => {
+      if (err) {
+         let error = err.errors;
+         res.status(500).json({
+            type: 'error',
+            serverError
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).json({
+               type: 'success',
+               message: 'Usuarios encontrados.',
+               doc: ok
+            });
+         }
+         else {
+            res.status(400).json({
+               type: 'warning',
+               message: 'No hay información de usuarios.'
+            });
          }
       }
    });
 }
 module.exports = {
-   save
+   save,
+   search,
+   searchBy
 }
