@@ -28,7 +28,6 @@ const UserSchema = Schema({
    },
    password: {
       type: String,
-      required: [true, 'Ingrese la contraseña']
    }
 });
 module.exports = mongoose.model('User', UserSchema);
