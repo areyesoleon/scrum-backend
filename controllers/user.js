@@ -66,7 +66,6 @@ function search(req, res) {
       if (err) {
          let error = err.errors;
          res.status(500).json({
-            type: 'error',
             serverError
          });
       }
@@ -93,7 +92,6 @@ function searchBy(req, res) {
       if (err) {
          let error = err.errors;
          res.status(500).json({
-            type: 'error',
             serverError
          });
       }
@@ -114,8 +112,63 @@ function searchBy(req, res) {
       }
    });
 }
+function update(req, res) {
+   let id = req.params.id;
+   let dataUpdate = req.body;
+   User.findByIdAndUpdate(id, dataUpdate, { new: true, runValidators: true }).select('name surName email role')
+      .exec((err, ok) => {
+         if (err) {
+            let error = err.errors;
+            res.status(500).json({
+               type: 'error',
+               arrayError: error
+            });
+         }
+         else {
+            if (ok) {
+               res.status(200).json({
+                  type: 'success',
+                  message: 'Usuario actualizado correctamente.',
+                  doc: ok
+               });
+            }
+            else {
+               res.status({
+                  type: 'warning',
+                  message: 'No se puedo actualizar el usuario.'
+               });
+            }
+         }
+      });
+}
+function remove(req, res) {
+   let id = req.params.id;
+   User.findByIdAndRemove(id, (err, ok) => {
+      if (err) {
+         res.status(500).json({
+            serverError
+         });
+      }
+      else {
+         if (ok) {
+            res.status(200).json({
+               type:'success',
+               message: 'El usuario fue eliminado correctamente.'
+            });
+         }
+         else {
+            res.status(404).json({
+               type:'warning',
+               message:'No se pudo eliminar el usuario.'
+            });
+         }
+      }
+   });
+}
 module.exports = {
    save,
    search,
-   searchBy
+   searchBy,
+   update,
+   remove
 }
